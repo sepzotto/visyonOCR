@@ -41,9 +41,6 @@ pip install pytesseract
 pip install pyspellchecker
 pip install unidecode
 pip install matplotlib
-
-pip install rest_framework
-
 pip install djangorestframework
 pip install psycopg2
 pip install django-rest-swagger
