@@ -51,7 +51,7 @@ pip install shapely
 https://github.com/HumanSignal/labelImg
 
 #Google Colab - Treinamento da Rede Yolo
-https://colab.research.google.com/drive/1Z2TfoZOjwlpqY-XLRoXvaQH2jWP57zlm
+https://colab.research.google.com/drive/1Z2TfoZOjwlpqY-XLRoXvaQH2jWP57zlm?usp=sharing
 
 #Ferramenta de Testes (API)
 https://www.postman.com/
