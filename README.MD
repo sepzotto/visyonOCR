@@ -19,7 +19,9 @@ git clone https://github.com/sepzotto/visyonOCR
 
 ---
 ### 3. Ferramentas de Desenvolvimento Utilizadas
-##### 3.1 PyCharm 2024.1 (Community Edition)
+
+#### 3.1 PyCharm 2024.1 (Community Edition)
+https://www.jetbrains.com/pycharm/download/
 
 #### 3.2 Tesseract
 ```
