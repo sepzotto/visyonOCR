@@ -18,7 +18,7 @@ PATH_URL = 'visyonOCR'
 WINDOWS = True
 SEPARADOR = '\\' if WINDOWS == True else '/'
 ##Exibir imagens durante o processamento - MODO DEBUG
-EXIBIR_IMAGENS_MD = True
+EXIBIR_IMAGENS_MD = False
 STATIC_URL = 'static'+'/'
 
 #CNN CONFIGURATION
