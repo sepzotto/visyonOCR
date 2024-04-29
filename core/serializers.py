@@ -30,7 +30,7 @@ class ImagemRetorno:
 @dataclass
 class ImagemResultadoDTOclass:
     classe: str
-    precisao: str
+    previsao: str
     palavras_encontradas: json
 
     def toJSON(self):

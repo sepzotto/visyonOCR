@@ -35,7 +35,7 @@ class PreProcessamentoAgrupadoThreadProcessor:
 
         for imageYolo in imagesYoloResult:
            classe = imageYolo[1]
-           precisao = "{:.2%}".format(imageYolo[2])
+           previsao = "{:.2%}".format(imageYolo[2])
            if (aplicarEscalaCinza is True):
                imgY = util.converteImagemEscalaCinza(imageYolo[0])
            else:
@@ -49,7 +49,7 @@ class PreProcessamentoAgrupadoThreadProcessor:
                util.mostrar(imgY)
 
            ocr = PreProcessamentoAgrupadoThreadProcessor.getResultadoOCR(imgY)
-           resProcessamento = ImagemResultadoDTOclass(**{'classe': classe, 'precisao': precisao, 'palavras_encontradas': [x for x in ocr if x.strip() != '']})
+           resProcessamento = ImagemResultadoDTOclass(**{'classe': classe, 'previsao': previsao, 'palavras_encontradas': [x for x in ocr if x.strip() != '']})
            resultados.append(resProcessamento.toJSON())
         return resultados
 
