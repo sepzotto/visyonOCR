@@ -70,7 +70,7 @@ pip install shapely
 https://github.com/HumanSignal/labelImg
 
 
-#### 3.5 Google Colab - Treinamento da Rede Yolo
+#### 3.5 Google Colab - Treinamento da Rede YOLO
 https://colab.research.google.com/drive/1Z2TfoZOjwlpqY-XLRoXvaQH2jWP57zlm?usp=sharing
 
 #### 3.6 Ferramenta de Testes (API)
@@ -86,7 +86,7 @@ Abra o arquivo **main/settings.py** e realize a configuração dos principais po
 * EXIBIR_IMAGENS_MD: Irá exibir as imagens no processo de identificação (Default False)
 * CNN_MIN_PREDICTION: Previsão mínima para rede YOLO considerar a predição (Default= 0.70 )
 * pytesseract.pytesseract.tesseract_cmd: Local onde o Tesseract está instalado (Default= r"/usr/bin/tesseract")
-* TESSERACT_LANGUAGE: Idioma do Tesseract (Default= "eng", para portugues baixar e colocar como "por")
+* TESSERACT_LANGUAGE: Idioma do Tesseract (Default= "eng", para português baixar e colocar como "por")
 * LANGUAGE_CODE: Idioma do sistema (Default='pt-br')
 * TIME_ZONE: Time zone (Default='America/Sao_Paulo')
 
@@ -104,20 +104,20 @@ A mesma imagem não pode estar nos dois lugares (treinamento e testes) e não po
 <br/>
 Execute o arquivo **processor/util/test_train_generator.py** para criar os arquivos test.txt e train.txt
 <br/>
-Ajuste o arquivo de configuração do Yolo em conf/yolo_dataset/cfg/yolov4_custom.cfg  para o numero de classes e filtros correspondentes. Abaixo o exemplo para 9 classes:
+Ajuste o arquivo de configuração do YOLO em conf/yolo_dataset/cfg/yolov4_custom.cfg  para o numero de classes e filtros correspondentes. Abaixo o exemplo para 9 classes:
 ```  
   #2000 * classes = 2000 * 9 = 18000
   max_batches = 18000
   # 80%/90% max_batches
   # 16000,18000
   # (numero_classes + 5) * 3
-  #Os dados abaixo devem ser substituídos nos três pontos da configuração do arquivo de confiuração
+  #Os dados abaixo devem ser substituídos nos três pontos referenciais do arquivo de configuração
   filters=42
   classes=9
   ```
 Ajuste os arquivos conf/yolo_dataset/data/obj.data (classes) e conf/yolo_dataset/data/obj.names (nomes das classes: um por linha)
 <br/>
-Após os passos acima, os arquivos podem ser copiados para o seu google drive e assim permitido que sejam copiados ao google colab e incluídos no darknet para treinamento da rede.
+Após os passos acima, os arquivos podem ser copiados para o seu Google Drive e assim permitido que sejam copiados ao Google Colab e incluídos no darknet para treinamento da rede.
 <br/>
 Copie a pasta inteira conf/yolo_dataset para o seu Google Drive.
 <br/>
@@ -142,7 +142,7 @@ Usando o Postman os testes poderão ser feitos conforme a imagem abaixo:
 
 #### 6.1 Consultando os filtros de processamento disponíveis
 
-Para consultar detalhadamente os filtros de processamento de imanges disponíveis e como utilizá-los, esta tarefa poderá ser feita conforme imagem abaixo: 
+Para consultar detalhadamente os filtros de processamento de imagens disponíveis e como utilizá-los, esta tarefa poderá ser feita conforme imagem abaixo: 
 
 ![postmanConsultaFiltros.PNG](readmeimg/postmanConsultaFiltros.PNG)
 
@@ -157,7 +157,7 @@ Abaixo estão listados também todos os filtros disponíveis na aplicação e co
     {
         "sigla": "LOT",
         "nome": "Limiarização OTSU",
-        "descricao": "Utilizado para se buscar o limiar ideal para separação dos elementos na imagem. Possui como parâmetro(s): (1). trashHoldValue:  Limite com valores pre definidos sendo possível informar os valores 120, 127 e 140.",
+        "descricao": "Utilizado para se buscar o limiar ideal para separação dos elementos na imagem. Possui como parâmetro(s): (1). trashHoldValue:  Limite com valores pré-definidos sendo possível informar os valores 120, 127 e 140.",
         "exemplo": "{'1':{'tipoProcessamento':'LOT','parametros':{'trashHold':'127'}}}"
     },
     {
@@ -175,7 +175,7 @@ Abaixo estão listados também todos os filtros disponíveis na aplicação e co
     {
         "sigla": "RED",
         "nome": "Redimensionamento",
-        "descricao": "Realiza o redimensionamento da imagem para permitir uma melhor resolução para o OCR. Possui como parâmetro(s): (1). fx: Fator de sacla sobrte o eixo horizontal. (2). fy: Fator de sacla sobrte o eixo vertical.",
+        "descricao": "Realiza o redimensionamento da imagem para permitir uma melhor resolução para o OCR. Possui como parâmetro(s): (1). fx: Fator de escala sobre o eixo horizontal. (2). fy: Fator de escala sobre o eixo vertical.",
         "exemplo": "{'1':{'tipoProcessamento':'RED','parametros': {'fx': '2','fy': '2'}}}"
     },
     {
@@ -195,17 +195,17 @@ Em uma mesma identificação poderão ser combinados vários filtros. Para isso 
 }
 ```
 #### 6.2 Identificação e extração (Modelos de Entrada e Saída)
-Para a requisição de identificação, são 4 parâmetros de entrada que podem ser enviados.
+Para a requisição de identificação, são 4 parâmetros de entrada que podem ser enviados:
 * **imagem**: Obrigatório - Tipo arquivo - Imagem que será enviada para identificação e extração.
-* **aplicarEscalaCinza**: - Opcional - Booleano - Se preenchido como True irá aplicar escala de cinza na imagem antes dos demais procedimetnos de identificação.
-* **aplicarMetricasPosProcessamento** - Opcional - Booleano - Se preechido como True indicará que o processamento de imagens ocorrerá após a aplicação da rede neural. Se preenchido como False, o processamento de imagens ocorrerá antes da aplicação da rede neural.  
+* **aplicarEscalaCinza**: - Opcional - Booleano - Se preenchido como True irá aplicar escala de cinza na imagem antes dos demais procedimentos de identificação.
+* **aplicarMetricasPosProcessamento** - Opcional - Booleano - Se preenchido como True indicará que o processamento de imagens ocorrerá após a aplicação da rede neural. Se preenchido como False, o processamento de imagens ocorrerá antes da aplicação da rede neural.  
 * **metricasProcessamentoImagem** - Opcional - Json - Métricas que definirão os filtros a serem aplicados no processamento de imagens.
 
 Após o processamento, serão retornados os seguintes dados como resultados da identificação e extração:
 
-* **erro**: Booleano - Se true indica que ouve erro no processo e no atributo mensagemRetorno será apresentado qual o problema que ocorreu. Se false, indica que o processamento ocorreu com sucesso e as informalções de identificação estarão apresentadas em mensagemRetorno e identificacao. 
+* **erro**: Booleano - Se true indica que ouve erro no processo e no atributo mensagemRetorno será apresentado qual o problema que ocorreu. Se false, indica que o processamento ocorreu com sucesso e as informações de identificação estarão apresentadas em mensagemRetorno e identificacao. 
 * **mensagemRetorno**: Texto - Mensagem textual que apresentará o erro ou um descritivo do processamento realizado nos casos de sucesso.
-* **identificacao**: Json - Caso o processo de identificação ocorra com sucesso, este campo apresentará um JSON com o resultado, podendo contar 1 ou mais conjuntos de dados encontrados na mesma identificação, conforme modelo abaixo.
+* **identificacao**: Json - Caso o processo de identificação ocorra com sucesso, este campo apresentará um JSON com o resultado, podendo contar com um ou mais conjuntos de dados encontrados na mesma identificação, conforme modelo abaixo.
 
 ```json
 {
@@ -220,26 +220,26 @@ Após o processamento, serão retornados os seguintes dados como resultados da i
 Os dados de identificação são:
 * **classe**: Texto - Classe prevista pela rede neural.
 * **previsao** Texto - Percentual da previsão da rede neural na classe indicada. 
-* **palavras_encontradas** Coleção - Conjunto de palavaras extraídas, separadas por ",".  
+* **palavras_encontradas** Coleção - Conjunto de palavras extraídas, separadas por ",".  
 
 
 
 #### 6.3 Identificação sem processamento de imagens
-O fluxo de identificação sem processamento de imagens, segue o exemplo da imagem abaixo:
+O fluxo de identificação sem processamento de imagens segue o exemplo da imagem abaixo:
 ![modeloSemProcessamento.PNG](readmeimg/modeloSemProcessamento.PNG)
 
 Para configurar o Postman neste modelo sem processamento de imagens, poderá seguir o exemplo da imagem abaixo:
 ![postmanConsultaSemProcessamento.PNG](readmeimg/postmanConsultaSemProcessamento.PNG)
 
  #### 6.4 Identificação com pré-processamento de imagens
-O fluxo de identificação com pré-processamento de imagens, segue o exemplo da imagem abaixo:
+O fluxo de identificação com pré-processamento de imagens segue o exemplo da imagem abaixo:
 ![modeloSemProcessamento.PNG](readmeimg/modeloPreProcessamento.PNG)
 
 Para configurar o Postman neste modelo com pré-processamento de imagens, poderá seguir o exemplo da imagem abaixo:
 ![postmanConsultaSemProcessamento.PNG](readmeimg/postmanConsultaPreProcessamento.PNG)
 
 #### 6.5 Identificação com pós-processamento de imagens
-O último fluxo de identificação com pós-processamento de imagens, segue o exemplo da imagem abaixo:
+O último fluxo de identificação com pós-processamento de imagens segue o exemplo da imagem abaixo:
 ![modeloSemProcessamento.PNG](readmeimg/modeloPosProcessamento.PNG)
 
 Para configurar o Postman neste modelo com pós-processamento de imagens, poderá seguir o exemplo da imagem abaixo:
