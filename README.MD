@@ -1,31 +1,31 @@
 # VisyonOCR
 
-<img src="http://img.shields.io/static/v1?label=STATUS&message=CONCLUIDO&color=GREEN&style=for-the-badge"/>
+<img src="http://img.shields.io/static/v1?label=STATUS&message=Finished&color=GREEN&style=for-the-badge"/>
 <img src="http://img.shields.io/static/v1?label=License&message=MIT&color=green&style=for-the-badge"/>
 <img src="http://img.shields.io/static/v1?label=Python&message=3.10&color=red&style=for-the-badge&logo=PYTHON"/>
 
-O VisyonOCR é um sistema em python que combina técnicas de processamento de imagens, rede neural convolucional  (YOLO - You Only Look Once) e reconhecimento óptico de caracteres (OCR) para oferecer uma solução completa de extração de texto em imagens.
+VisyonOCR is a Python system that combines image processing techniques, convolutional neural network (YOLO - You Only Look Once), and optical character recognition (OCR) to provide a comprehensive solution for text extraction from images. 
 
 ---
-### 1. Versão
+### 1. Version
 #### 1.0
-Disponibilização da aplicação com instruções de treinamento da rede neural e como usar o projeto para identificação textual com a opção de se  aplicar filtros de processamento de imagens.
+Release of the application with instructions for training the neural network and how to use the project for textual identification with the option to apply image processing filters.
 
 ---
-### 2. Instalando o VisyonOCR pelo Git
+### 2. Installing VisyonOCR via Git
 ```
 git clone https://github.com/sepzotto/visyonOCR
 ```
 
 ---
-### 3. Ferramentas de Desenvolvimento Utilizadas
+### 3. Development Tools Used
 
 #### 3.1 PyCharm 2024.1 (Community Edition)
 https://www.jetbrains.com/pycharm/download/
 
 #### 3.2 Tesseract
 ```
-Instalando e configurando o tesseract no Linux
+Installing and configuring Tesseract on Linux
 --sudo add-apt-repository ppa:deadsnakes/ppa -y
 --sudo add-apt-repository ppa:deadsnakes/nightly -y
 --sudo apt update
@@ -34,21 +34,21 @@ Instalando e configurando o tesseract no Linux
 --sudo apt install python3.10-dev libpq-dev
 ```
 ```
-Instalando e configurando o tesseract no Windows
-https://github.com/UB-Mannheim/tesseract/wiki
-```
-```
-Configurando o tesseract no projeto
+Configuring Tesseract in the project
 --sudo apt install tesseract-ocr
 --sudo apt install libtesseract-dev
 --sudo apt-get install tesseract-ocr-por
 ```
 ```
-Baixando a linguagem português
-https://github.com/tesseract-ocr/tessdata/tree/3.04.00
-Colocar em tessdata no local em que o tesseract foi instalado
+Installing and configuring Tesseract on Windows
+https://github.com/UB-Mannheim/tesseract/wiki
 ```
-#### 3.3 Principais Bibliotecas do Python
+```
+Downloading the Portuguese language
+https://github.com/tesseract-ocr/tessdata/tree/3.04.00
+Place it in tessdata in the location where Tesseract was installed.
+```
+#### 3.3 Main Python Libraries
 ```
 pip install --upgrade pip
 pip install django
@@ -65,184 +65,179 @@ pip install django-rest-swagger
 pip install drf-spectacular
 pip install shapely
 ```
-
-#### 3.4 Projeto para definição das áreas de interesse (Bounding Box)
+#### 3.4 Project for defining areas of interest (Bounding Box)
 https://github.com/HumanSignal/labelImg
 
+#### 3.5 Google Colab - YOLO Network Training
+https://colab.research.google.com/drive/1JFG1iqRTAFxFna2fv--LjADufCKfrwj-?usp=sharing
 
-#### 3.5 Google Colab - Treinamento da Rede YOLO
-https://colab.research.google.com/drive/1Z2TfoZOjwlpqY-XLRoXvaQH2jWP57zlm?usp=sharing
-
-#### 3.6 Ferramenta de Testes (API)
-
+#### 3.6 Testing Tool (API)
 https://www.postman.com/
 
 ---
 
-### 4. Configurando o Projeto
-Abra o arquivo **main/settings.py** e realize a configuração dos principais pontos do sistema:
-* PATH_URL: Nome do projeto quando for realizada a execução (Default: visyonOCR)
-* WINDOWS: Se True indicará que o SO utilizado é Windows. Se False Linux (Default False)
-* EXIBIR_IMAGENS_MD: Irá exibir as imagens no processo de identificação (Default False)
-* CNN_MIN_PREDICTION: Previsão mínima para rede YOLO considerar a predição (Default= 0.70 )
-* pytesseract.pytesseract.tesseract_cmd: Local onde o Tesseract está instalado (Default= r"/usr/bin/tesseract")
-* TESSERACT_LANGUAGE: Idioma do Tesseract (Default= "eng", para português baixar e colocar como "por")
-* LANGUAGE_CODE: Idioma do sistema (Default='pt-br')
+### 4. Setting up the Project
+Open the file **main/settings.py** and configure the main aspects of the system:
+* PATH_URL: Project name when execution is performed (Default: visyonOCR)
+* WINDOWS: If True, it indicates that the operating system used is Windows. If False, Linux (Default False)
+* DISPLAY_IMAGES_MD: It will display the images during the identification process (Default False)
+* CNN_MIN_PREDICTION: Minimum confidence threshold for the YOLO network to consider the prediction (Default = 0.70)
+* pytesseract.pytesseract.tesseract_cmd: Location where Tesseract is installed (Default= r"/usr/bin/tesseract")
+* TESSERACT_LANGUAGE: Tesseract language (Default = 'eng', for Portuguese download and set as 'por')
+* LANGUAGE_CODE: System language (Default='pt-br')
 * TIME_ZONE: Time zone (Default='America/Sao_Paulo')
 
-#### 4.1 Preparação e treinametno da rede YOLO
-Primeiramente separe todas as imagens que farão parte do dataset em uma pasta. A primeira etapa será configurar os Bounding Box de cada imagem para identificar as áreas de interesse.
-Abra o projeto labelimg e copie as imagens a serem classificadas para a pasta "dataset/imagens". 
+#### 4.1 Preparation and training of the YOLO network
+Firstly, separate all the images that will be part of the dataset into a folder. The first step will be to set up the bounding boxes for each image to identify the areas of interest.
+Open the labelImg project and copy the images to be classified into the folder 'dataset/images'.
 <br/>
-Copie na sequência o nome das classes em um arquivo txt chamado "classes.txt".
+Copy the names of the classes in sequence into a text file named "classes.txt".
 <br/>
-Execute o comando > python.exe .\labelImg.py .\dataset\imagens\ .\classes.txt e crie os labels de cada imagem conforme a classe. Para cada imagem será gerado um novo arquivo txt como o nome da imagem e dados dos bounding box gerados.
+Execute the command > python.exe .\labelImg.py .\dataset\images\ .\classes.txt and create the labels for each image according to the class. For each image, a new text file will be generated with the name of the image and the data of the generated bounding boxes
 <br/>
-Copie as imagens e seus txts para o projeto principal (VisyonOCR), dividindo eles entre treinamento (conf/yolo_dataset/data/obj) e testes (conf/yolo_dataset/data/valid). Obs: Sugestão de divisão de 80% das imagens para treinamento e 20% para testes/validação.
+Copy the images and their text files to the main project (VisyonOCR), dividing them between training (conf/yolo_dataset/data/obj) and testing (conf/yolo_dataset/data/valid) folders. Note: Suggested division of 80% of the images for training and 20% for testing/validation.
 <br/>
-A mesma imagem não pode estar nos dois lugares (treinamento e testes) e não pode haver imagem sem txt com dados de bounding box.
+The same image cannot be in both places (training and testing), and there cannot be an image without a corresponding text file containing bounding box data
 <br/>
-Execute o arquivo **processor/util/test_train_generator.py** para criar os arquivos test.txt e train.txt
+Execute the file **processor/util/test_train_generator.py** to create the files test.txt and train.txt.
 <br/>
-Ajuste o arquivo de configuração do YOLO em conf/yolo_dataset/cfg/yolov4_custom.cfg  para o numero de classes e filtros correspondentes. Abaixo o exemplo para 9 classes:
+Adjust the YOLO configuration file at conf/yolo_dataset/cfg/yolov4_custom.cfg for the number of classes and corresponding filters. Below is an example for 9 classes:
 ```  
   #2000 * classes = 2000 * 9 = 18000
   max_batches = 18000
   # 80%/90% max_batches
   # 16000,18000
-  # (numero_classes + 5) * 3
-  #Os dados abaixo devem ser substituídos nos três pontos referenciais do arquivo de configuração
+  # (Number of classes + 5) * 3
+  #The data below should be replaced in the three reference points of the configuration file.
   filters=42
   classes=9
   ```
-Ajuste os arquivos conf/yolo_dataset/data/obj.data (classes) e conf/yolo_dataset/data/obj.names (nomes das classes: um por linha)
+Adjust the files conf/yolo_dataset/data/obj.data (classes) and conf/yolo_dataset/data/obj.names (class names: one per line).
 <br/>
-Após os passos acima, os arquivos podem ser copiados para o seu Google Drive e assim permitido que sejam copiados ao Google Colab e incluídos no darknet para treinamento da rede.
+After the above steps, the files can be copied to your Google Drive, allowing them to be copied to Google Colab and included in darknet for training the network.
 <br/>
-Copie a pasta inteira conf/yolo_dataset para o seu Google Drive.
+Copy the entire folder conf/yolo_dataset to your Google Drive.
 <br/>
-Abra o notebook https://colab.research.google.com/drive/1Z2TfoZOjwlpqY-XLRoXvaQH2jWP57zlm?usp=sharing e siga os passos do documento para realizar o treinamento da rede.
+Open the notebook https://colab.research.google.com/drive/1JFG1iqRTAFxFna2fv--LjADufCKfrwj-?usp=sharing and follow the steps in the document to perform the network training.
 <br/>
-A rede neural será gerada na pasta yolo_dataset/cnn do Colab após finalizar o treinamento. Copiar ela para a pasta conf/yolo_dataset/cnn do projeto principal com o nome "rede_neural.weights"
+The neural network will be generated in the folder yolo_dataset/cnn in Colab after finishing the training. Copy it to the folder conf/yolo_dataset/cnn of the main project with the name "rede_neural.weights".
 
 ---
-### 5. Iniciando o VisyonOCR
-Realize a configuração conforme a imagem abaixo:
+### 5. Starting VisyonOCR
+
+Perform the configuration as shown in the image below:
 
 ![runDebugConfiguration.PNG](readmeimg/runDebugConfiguration.PNG)
        
 
-Após a configuração, basta executar o projeto para iniciá-lo.
+After configuring, simply run the project to start it.
 
 ---
-### 6. Testando a aplicação
-Após iniciar a aplicação, a API estará disponível através da URL http://localhost:8000/visyonOCR/api/swagger/#/
+### 6. Testing the application
+After starting the application, the API will be available via the URL http://localhost:8000/visyonOCR/api/swagger/#/
 
-Usando o Postman os testes poderão ser feitos conforme a imagem abaixo:
+Tests can be performed using Postman according to the following items.
 
-#### 6.1 Consultando os filtros de processamento disponíveis
+#### 6.1 Querying available processing filters
 
-Para consultar detalhadamente os filtros de processamento de imagens disponíveis e como utilizá-los, esta tarefa poderá ser feita conforme imagem abaixo: 
+To thoroughly inquire about available image processing filters and how to use them, this task can be performed as shown in the image below: 
 
 ![postmanConsultaFiltros.PNG](readmeimg/postmanConsultaFiltros.PNG)
 
-Abaixo estão listados também todos os filtros disponíveis na aplicação e como podem ser utilizados:
+Below are also listed all available filters in the application and how they can be used:
 ```json
     {
-        "sigla": "INC",
-        "nome": "Inversão de Cores",
-        "descricao": "Realiza a inversão de cores transformando a imagem que está em escala de cinza em branco e preto. Para aplicar no processamento este filtro deverá ser enviada a sigla seguida de true.",
-        "exemplo": "{'1':{'tipoProcessamento':'INC','parametros':{}}}"
+        "id": "INC",
+        "name": "Color Inversion",
+        "description": "Performs color inversion, transforming the grayscale image into black and white.",
+        "example": "{'1':{'processingType':'INC','parameters':{}}}"
     },
     {
-        "sigla": "LOT",
-        "nome": "Limiarização OTSU",
-        "descricao": "Utilizado para se buscar o limiar ideal para separação dos elementos na imagem. Possui como parâmetro(s): (1). trashHoldValue:  Limite com valores pré-definidos sendo possível informar os valores 120, 127 e 140.",
-        "exemplo": "{'1':{'tipoProcessamento':'LOT','parametros':{'trashHold':'127'}}}"
+        "id": "LOT",
+        "name": "OTSU Thresholding",
+        "description": "Used to find the ideal threshold for separating elements in the image. It has parameter(s): (1). trashHoldValue:  Threshold with predefined values, where it's possible to inform the values 120, 127, and 140.",
+        "example": "{'1':{'processingType':'LOT','parameters':{'trashHold':'127'}}}"
     },
     {
-        "sigla": "RFB",
-        "nome": "Remoção de ruídos - Filtro Bilateral",
-        "descricao": "Usado para suavizar as imagens e reduzir o ruído, preservando as bordas. Possui como parâmetro(s): (1). diameter: Variável que representa o diámetro dos pixels vizinhos sendo possível informar os valores 5, 15, 30. (2). sigmaColor: Variável que representa o filtro sigma no espaço de cores sendo possível informar os valores 45, 55, 65. (3). sigmaSpace: Variável que representa o filtro sigma no espaço de coordenadas sendo possível informar os valores 45, 55, 65.",
-        "exemplo": "{'1':{'tipoProcessamento':'RFB','parametros':{'diameter': '15','sigmaColor': '45','sigmaSpace': '65}}}"
+        "id": "RFB",
+        "name": "Noise Removal - Bilateral Filter",
+        "description": "Used to smooth images and reduce noise while preserving edges. It has parameter(s): (1) diameter: Variable representing the diameter of neighboring pixels, with possible values of 5, 15, 30. (2) sigmaColor: Variable representing the sigma filter in color space, with possible values of 45, 55, 65. (3) sigmaSpace: Variable representing the sigma filter in coordinate space, with possible values of 45, 55, 65.",
+        "example": "{'1':{'processingType':'RFB','parameters':{'diameter': '15','sigmaColor': '45','sigmaSpace': '65}}}"
     },
     {
-        "sigla": "ROT",
-        "nome": "Rotação",
-        "descricao": "Usado para realizar a rotação das imagens. Possui como parâmetro(s): (1). rotatedegrees: Variável que representa o grau de rotação que será aplicado na imagem, podendo ser um número entre 1 e 359.",
-        "exemplo": "{'1':{'tipoProcessamento':'ROT','parametros': {'rotatedegrees': '90' }}}"
+        "id": "ROT",
+        "name": "Rotation",
+        "description": "Used to perform image rotation. It has the following parameter: (1) rotatedegrees: Variable representing the degree of rotation to be applied to the image, which can be a number between 1 and 359.",
+        "example": "{'1':{'processingType':'ROT','parameters': {'rotatedegrees': '90' }}}"
     },
     {
-        "sigla": "RED",
-        "nome": "Redimensionamento",
-        "descricao": "Realiza o redimensionamento da imagem para permitir uma melhor resolução para o OCR. Possui como parâmetro(s): (1). fx: Fator de escala sobre o eixo horizontal. (2). fy: Fator de escala sobre o eixo vertical.",
-        "exemplo": "{'1':{'tipoProcessamento':'RED','parametros': {'fx': '2','fy': '2'}}}"
+        "id": "RED",
+        "name": "Resizing",
+        "description": "Resizes the image to allow for better resolution for OCR. It has the following parameters: (1) fx: Scale factor on the horizontal axis. (2) fy: Scale factor on the vertical axis.",
+        "example": "{'1':{'processingType':'RED','parameters': {'fx': '2','fy': '2'}}}"
     },
     {
-        "sigla": "ODF",
-        "nome": "Operação Morfológica - Dilatação e Fechamento",
-        "descricao": "Irá ajustar os limites do objeto em primeiro plano e aumentar a área do objeto para acentuar recursos. Possui como parâmetro(s): (1). sMatrix: O kernel a ser usado. (2). iterations: O número de iterações de dilatações a serem realizadas.",
-        "exemplo": "{'1':{'tipoProcessamento':'ODF','parametros': {'sMatrix': '2','iterations': '3'}}}"
+        "id": "ODF",
+        "name": "Morphological Operation - Dilation and Closing",
+        "description": "It will adjust the boundaries of the foreground object and increase the area of the object to enhance features. It has the following parameters: (1) sMatrix: The kernel to be used. (2) iterations: The number of dilation iterations to be performed.",
+        "example": "{'1':{'processingType':'ODF','parameters': {'sMatrix': '2','iterations': '3'}}}"
     }
 ```
 
-Em uma mesma identificação poderão ser combinados vários filtros. Para isso basta indicar a ordem que cada filtro será aplicado dentro do JSON correspondente. Por exemplo, caso deseje aplicar um Redimensionamento, seguido de uma Operação Morfológica - Dilatação e Fechamento e por fim uma Remoção de ruídos - Filtro Bilateral, nesta sequência, poderá utilizar o JSON abaixo:
+In a single identification, multiple filters can be combined. To do this, simply indicate the order in which each filter will be applied within the corresponding JSON. For example, if you want to apply Resizing followed by Morphological Operations - Dilation and Closing, and finally Noise Removal - Bilateral Filter, in this sequence, you can use the JSON below:
 ```json
 {
-	'1':{'tipoProcessamento':'RED','parametros': {'fx': '2','fy': '2'}},
-	'2':{'tipoProcessamento':'ODF','parametros': {'sMatrix': '2','iterations': '3'}},
-	'3':{'tipoProcessamento':'RFB','parametros':{'diameter': '15','sigmaColor': '45','sigmaSpace': '65}}
+	'1':{'processingType':'RED','parameters': {'fx': '2','fy': '2'}},
+	'2':{'processingType':'ODF','parameters': {'sMatrix': '2','iterations': '3'}},
+	'3':{'processingType':'RFB','parameters':{'diameter': '15','sigmaColor': '45','sigmaSpace': '65}}
 }
 ```
-#### 6.2 Identificação e extração (Modelos de Entrada e Saída)
-Para a requisição de identificação, são 4 parâmetros de entrada que podem ser enviados:
-* **imagem**: Obrigatório - Tipo arquivo - Imagem que será enviada para identificação e extração.
-* **aplicarEscalaCinza**: - Opcional - Booleano - Se preenchido como True irá aplicar escala de cinza na imagem antes dos demais procedimentos de identificação.
-* **aplicarMetricasPosProcessamento** - Opcional - Booleano - Se preenchido como True indicará que o processamento de imagens ocorrerá após a aplicação da rede neural. Se preenchido como False, o processamento de imagens ocorrerá antes da aplicação da rede neural.  
-* **metricasProcessamentoImagem** - Opcional - Json - Métricas que definirão os filtros a serem aplicados no processamento de imagens.
+#### 6.2 Identification and extraction (Input and Output Models)
+For the identification request, there are 4 input parameters that can be sent:
+* **image**: Required  - File type - Image to be sent for identification and extraction.
+* **applyGrayScale**: -  Optional - Boolean - If filled as True, it will apply grayscale to the image before other identification procedures.
+* **applyPostProcessingMetrics** - Optional - Boolean - If filled as True, it indicates that image processing will occur after the application of the neural network. If filled as False, image processing will occur before the application of the neural network.  
+* **imageProcessingMetrics** -  Optional - JSON - Metrics that will define the filters to be applied in image processing.
 
-Após o processamento, serão retornados os seguintes dados como resultados da identificação e extração:
-
-* **erro**: Booleano - Se true indica que ouve erro no processo e no atributo mensagemRetorno será apresentado qual o problema que ocorreu. Se false, indica que o processamento ocorreu com sucesso e as informações de identificação estarão apresentadas em mensagemRetorno e identificacao. 
-* **mensagemRetorno**: Texto - Mensagem textual que apresentará o erro ou um descritivo do processamento realizado nos casos de sucesso.
-* **identificacao**: Json - Caso o processo de identificação ocorra com sucesso, este campo apresentará um JSON com o resultado, podendo contar com um ou mais conjuntos de dados encontrados na mesma identificação, conforme modelo abaixo.
+After processing, the following data will be returned as identification and extraction results:
+* **error**: Boolean - If true, indicates that there was an error in the process, and the errorMessage attribute will present what problem occurred. If false, it indicates that the processing occurred successfully, and the identification information will be presented in the messageResponse and identification attributes. 
+* **messageResponse**: Text - Text message that will present the error or a description of the processing performed in successful cases.
+* **identification**: JSON - If the identification process occurs successfully, this field will present a JSON with the result, which may contain one or more sets of data found in the same identification, according to the model below.
 
 ```json
 {
-    "erro": false,
-    "mensagemRetorno": "Imagem com padrão de indentificação encontrada",
-    "identificacao": [
-        "{"classe": "CXC", "previsao": "97.86%", "palavras_encontradas": ["CONTA:", "0399", "040", "01594197-3"]}",
-        "{"classe": "CXC", "previsao": "97.64%", "palavras_encontradas": ["CONTA:", "0399", "040", "01594197-3"]}"
+    "error": false,
+    "messageResponse": "Image with identification pattern found",
+    "identification": [
+        "{"classe": "CXC", "prediction": "97.86%", "found_words": ["CONTA:", "0399", "040", "01594197-3"]}",
+        "{"classe": "CXC", "prediction": "97.64%", "found_words": ["CONTA:", "0399", "040", "01594197-3"]}"
     ]
 }
 ```
-Os dados de identificação são:
-* **classe**: Texto - Classe prevista pela rede neural.
-* **previsao** Texto - Percentual da previsão da rede neural na classe indicada. 
-* **palavras_encontradas** Coleção - Conjunto de palavras extraídas, separadas por ",".  
+The identification data are:
+* **classe**: Text - Class predicted by the neural network.
+* **prediction** Text - Percentage of the neural network prediction in the indicated class.
+* **found_words** Collection - Set of extracted words, separated by ",".
 
-
-
-#### 6.3 Identificação sem processamento de imagens
-O fluxo de identificação sem processamento de imagens segue o exemplo da imagem abaixo:
+#### 6.3 Identification without image processing
+The identification flow without image processing follows the example of the image below:
 ![modeloSemProcessamento.PNG](readmeimg/modeloSemProcessamento.PNG)
 
-Para configurar o Postman neste modelo sem processamento de imagens, poderá seguir o exemplo da imagem abaixo:
+To configure Postman in this model without image processing, you can follow the example in the image below:
 ![postmanConsultaSemProcessamento.PNG](readmeimg/postmanConsultaSemProcessamento.PNG)
 
- #### 6.4 Identificação com pré-processamento de imagens
-O fluxo de identificação com pré-processamento de imagens segue o exemplo da imagem abaixo:
+ #### 6.4 Identification with image preprocessing
+The identification flow with image preprocessing follows the example in the image below:
 ![modeloSemProcessamento.PNG](readmeimg/modeloPreProcessamento.PNG)
 
-Para configurar o Postman neste modelo com pré-processamento de imagens, poderá seguir o exemplo da imagem abaixo:
+To configure Postman in this model with image preprocessing, you can follow the example in the image below:
 ![postmanConsultaSemProcessamento.PNG](readmeimg/postmanConsultaPreProcessamento.PNG)
 
-#### 6.5 Identificação com pós-processamento de imagens
-O último fluxo de identificação com pós-processamento de imagens segue o exemplo da imagem abaixo:
+#### 6.5 Identification with image post-processing
+The last identification flow with image post-processing follows the example in the image below:
 ![modeloSemProcessamento.PNG](readmeimg/modeloPosProcessamento.PNG)
 
-Para configurar o Postman neste modelo com pós-processamento de imagens, poderá seguir o exemplo da imagem abaixo:
+To configure Postman in this model with image post-processing, you can follow the example in the image below:
 ![postmanConsultaSemProcessamento.PNG](readmeimg/postmanConsultaPosProcessamento.PNG)
 
 

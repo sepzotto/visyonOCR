@@ -13,24 +13,24 @@ class PreProcessamentoAgrupadoThreadProcessor:
     def iniciarProcessamento(imagemOriginal,parametros,aplicarMetricasPosProcessamento,aplicarEscalaCinza):
         resultados = []
 
-        if(st.EXIBIR_IMAGENS_MD):
+        if(st.DISPLAY_IMAGES_MD):
             util.mostraPil(imagemOriginal)
 
-        #Conversao para escala de cinza
+        #Conversion to grayscale
         if(aplicarEscalaCinza is True):
             imgProcessada = util.converteImagemEscalaCinza(np.array(imagemOriginal))
-            if (st.EXIBIR_IMAGENS_MD):
+            if (st.DISPLAY_IMAGES_MD):
                 util.mostrar(imgProcessada)
         else:
             imgProcessada = np.array(imagemOriginal)
 
-        # Aplicação de filtros - pre processamento
+        # Filter application - preprocessing
         if (parametros is not None and len(parametros) > 0 and aplicarMetricasPosProcessamento is False):
            imgProcessada = PreProcessamentoAgrupadoThreadProcessor.getResultadoProcessamentoImagens(imgProcessada, parametros,aplicarEscalaCinza)
-           if (st.EXIBIR_IMAGENS_MD):
+           if (st.DISPLAY_IMAGES_MD):
                util.mostraPil(imgProcessada)
 
-        # Aplica a rede neural Yolo e obtem os boundi box específicos
+        # Apply the YOLO neural network and obtain specific bounding boxes.
         imagesYoloResult  = YoloCNN.getImagensYolo(cv2.cvtColor(imgProcessada, cv2.COLOR_RGB2BGR),YoloCNN.carregarRede())
 
         for imageYolo in imagesYoloResult:
@@ -41,15 +41,15 @@ class PreProcessamentoAgrupadoThreadProcessor:
            else:
                 imgY = imageYolo[0]
 
-           # Aplicação de filtros - pós processamento
+           # Filter application - post-processing
            if (parametros is not None and len(parametros) > 0 and aplicarMetricasPosProcessamento is True):
                imgY = PreProcessamentoAgrupadoThreadProcessor.getResultadoProcessamentoImagens(imgY, parametros,aplicarEscalaCinza)
 
-           if (st.EXIBIR_IMAGENS_MD):
+           if (st.DISPLAY_IMAGES_MD):
                util.mostrar(imgY)
 
            ocr = PreProcessamentoAgrupadoThreadProcessor.getResultadoOCR(imgY)
-           resProcessamento = ImagemResultadoDTOclass(**{'classe': classe, 'previsao': previsao, 'palavras_encontradas': [x for x in ocr if x.strip() != '']})
+           resProcessamento = ImagemResultadoDTOclass(**{'classe': classe, 'prediction': previsao, 'found_words': [x for x in ocr if x.strip() != '']})
            resultados.append(resProcessamento.toJSON())
         return resultados
 
@@ -58,7 +58,7 @@ class PreProcessamentoAgrupadoThreadProcessor:
         json_object = dict(sorted(json_object.items()))
         for i in json_object:
             processamento = json_object[i]
-            imgProcessada = util.getProcessamentoDic(processamento["tipoProcessamento"], imgProcessada,aplicarEscalaCinza,processamento["parametros"])
+            imgProcessada = util.getProcessamentoDic(processamento["processingType"], imgProcessada,aplicarEscalaCinza,processamento["parameters"])
         return imgProcessada
 
     def getResultadoOCR(imgFile):

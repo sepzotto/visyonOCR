@@ -5,33 +5,32 @@ from rest_framework import serializers
 
 
 class ImagemPostSerializer(serializers.Serializer):
-    imagem = serializers.FileField()
-    metricasProcessamentoImagem = serializers.JSONField(required=False)
-    aplicarMetricasPosProcessamento = serializers.BooleanField(required=False)
-    aplicarEscalaCinza = serializers.BooleanField(required=False)
+    image = serializers.FileField()
+    imageProcessingMetrics = serializers.JSONField(required=False)
+    applyPostProcessingMetrics = serializers.BooleanField(required=False)
+    applyGrayScale = serializers.BooleanField(required=False)
 
 class FiltroSerializer(serializers.Serializer):
-    sigla = serializers.CharField()
-    nome = serializers.CharField()
-    descricao = serializers.CharField()
-    exemplo = serializers.JSONField()
-
+    id = serializers.CharField()
+    name = serializers.CharField()
+    description = serializers.CharField()
+    example = serializers.JSONField()
 
 class ImagemRetornoPostSerializer(serializers.Serializer):
-    erro = serializers.BooleanField()
-    mensagemRetorno = serializers.CharField()
-    identificacao = serializers.JSONField(required=False)
+    error = serializers.BooleanField()
+    messageResponse = serializers.CharField()
+    identification = serializers.JSONField(required=False)
 class ImagemRetorno:
-    def __init__(self, erro, mensagemRetorno,identificacao=None):
-        self.erro = erro
-        self.mensagemRetorno = mensagemRetorno
-        self.identificacao = identificacao
+    def __init__(self, error, messageResponse,identification=None):
+        self.error = error
+        self.messageResponse = messageResponse
+        self.identification = identification
 
 @dataclass
 class ImagemResultadoDTOclass:
     classe: str
-    previsao: str
-    palavras_encontradas: json
+    prediction: str
+    found_words: json
 
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__,

@@ -8,11 +8,11 @@ from core.serializers import ImagemPostSerializer, ImagemRetornoPostSerializer
 
 class ImagePostGeneric(CreateAPIView):
         def post(self, request):
-            img = Image.open(request.FILES["imagem"])
+            img = Image.open(request.FILES["image"])
             serializer_class = ImagemPostSerializer(data=request.data)
             serializer_class.is_valid(raise_exception=True)
-            retorno = proc.processarImagem(img,serializer_class.data)
-            retornoSerializer = ImagemRetornoPostSerializer(retorno)
-            return Response(retornoSerializer.data)
+            ret = proc.processarImagem(img,serializer_class.data)
+            retSerializer = ImagemRetornoPostSerializer(ret)
+            return Response(retSerializer.data)
 
 

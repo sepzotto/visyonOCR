@@ -16,12 +16,12 @@ import pytesseract
 BASE_DIR = Path(__file__).resolve().parent.parent
 PATH_URL = 'visyonOCR'
 WINDOWS = True
-SEPARADOR = '\\' if WINDOWS == True else '/'
-##Exibir imagens durante o processamento - MODO DEBUG
-EXIBIR_IMAGENS_MD = False
+SEPARATOR = '\\' if WINDOWS == True else '/'
+##Display Imagens in DEBUG MODE
+DISPLAY_IMAGES_MD = True
 STATIC_URL = 'static'+'/'
 
-#CNN CONFIGURATION
+#CNN CONFIGURATION MIN PREDICTION
 CNN_MIN_PREDICTION = 0.70
 
 #OCR TESSERACT
@@ -35,11 +35,11 @@ USE_I18N = True
 USE_TZ = False
 
 #CNN YOLO
-DATASET_YOLO_CFG_PATH = str(BASE_DIR)+SEPARADOR+'conf'+SEPARADOR+'yolo_dataset'+SEPARADOR+'cfg'
-DATASET_YOLO_OBJ_PATH = str(BASE_DIR)+SEPARADOR+'conf'+SEPARADOR+'yolo_dataset'+SEPARADOR+'data'+SEPARADOR+'obj'
-DATASET_YOLO_VALID_PATH = str(BASE_DIR)+SEPARADOR+'conf'+SEPARADOR+'yolo_dataset'+SEPARADOR+'data'+SEPARADOR+'valid'
-DATASET_YOLO_DATA_PATH = str(BASE_DIR)+SEPARADOR+'conf'+SEPARADOR+'yolo_dataset'+SEPARADOR+'data'
-DATASET_YOLO_CNN_PATH = str(BASE_DIR)+SEPARADOR+'conf'+SEPARADOR+'yolo_dataset'+SEPARADOR+'cnn'
+DATASET_YOLO_CFG_PATH = str(BASE_DIR) + SEPARATOR + 'conf' + SEPARATOR + 'yolo_dataset' + SEPARATOR + 'cfg'
+DATASET_YOLO_OBJ_PATH = str(BASE_DIR) + SEPARATOR + 'conf' + SEPARATOR + 'yolo_dataset' + SEPARATOR + 'data' + SEPARATOR + 'obj'
+DATASET_YOLO_VALID_PATH = str(BASE_DIR) + SEPARATOR + 'conf' + SEPARATOR + 'yolo_dataset' + SEPARATOR + 'data' + SEPARATOR + 'valid'
+DATASET_YOLO_DATA_PATH = str(BASE_DIR) + SEPARATOR + 'conf' + SEPARATOR + 'yolo_dataset' + SEPARATOR + 'data'
+DATASET_YOLO_CNN_PATH = str(BASE_DIR) + SEPARATOR + 'conf' + SEPARATOR + 'yolo_dataset' + SEPARATOR + 'cnn'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
